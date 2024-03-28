@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("ImageEditor");
+		config.setWindowedMode(584,480);
 		System.out.println("Project Made by: Haley Bush and Adam Carling");
 		new Lwjgl3Application(new ImageEditor(), config);
 	}

@@ -1,33 +1,46 @@
 package com.mygdx.imageeditor;
 
+import java.util.Random;
+
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-//public Pixmap (int width, int height, Format format) {}
-
-
 public class ImageEditor extends ApplicationAdapter {
 	SpriteBatch batch;
 	Rec2D rectangle;
+	private Vector2 _screenSize;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		rectangle = new Rec2D(new Vector2(200,100), new Vector2(200,200), Color.RED);
+		_screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		rectangle = new Rec2D(new Vector2(200,100), new Vector2(200,200), new Vector2 (4,4), Color.RED);
 		
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(0.4f, 0f, 0.5f, 1);
+		ScreenUtils.clear(0f, 0f, 0f, 1);
 		batch.begin();
 		batch.draw(rectangle.RecTexture, rectangle.Position.x, rectangle.Position.y);
+		
+		if (rectangle.Position.x > Gdx.graphics.getWidth() || rectangle.Position.x < 0) {
+			rectangle.Velocity.x *= -1;
+			Random random = new Random();
+			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
+		}
+		
+		if (rectangle.Position.y > Gdx.graphics.getHeight() || rectangle.Position.y < 0) {
+			rectangle.Velocity.y *= -1;
+			Random random = new Random();
+			rectangle.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
+		}
+		
+		rectangle.Position.add(rectangle.Velocity);
 		batch.end();
 	}
 	
