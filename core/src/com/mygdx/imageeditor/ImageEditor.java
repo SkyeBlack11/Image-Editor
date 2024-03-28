@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class ImageEditor extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	
+	Rec2D rectangle;
 	
 	@Override
 	public void create () {
@@ -26,7 +25,7 @@ public class ImageEditor extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(.4f, 0f, 0.5f, 1);
+		ScreenUtils.clear(0.4f, 0f, 0.5f, 1);
 		batch.begin();
 		batch.draw(rectangle.RecTexture, rectangle.Position.x, rectangle.Position.y);
 		batch.end();
@@ -35,6 +34,5 @@ public class ImageEditor extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }

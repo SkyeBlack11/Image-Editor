@@ -20,17 +20,19 @@ public class Rec2D {
 			Scale = scale;
 			Position = position;
 			_recColor = color;
+			
+			generateTexture();
 		}
 		
 		Pixmap rectangleMap;
 		private void generateTexture() {
-			rectangleMap = new Pixmap(200, 100, Format.RGBA8888);
-			rectangleMap.setColor(Color.BLACK);
-			for(int x = 0; x < rectangleMap.getWidth(); x++) {
-				for (int y = 0; y < rectangleMap.getHeight(); y++) {
-					rectangleMap.drawPixel(x, y);
+			_pixelMap = new Pixmap((int) Scale.x, (int) Scale.y, Format.RGBA8888);
+			_pixelMap.setColor(_recColor);
+			for(int x = 0; x < _pixelMap.getWidth(); x++) {
+				for (int y = 0; y < _pixelMap.getHeight(); y++) {
+					_pixelMap.drawPixel(x, y);
 				}
 			}
-			img = new Texture(rectangleMap);
+			RecTexture = new Texture(_pixelMap);
 		}
 }
