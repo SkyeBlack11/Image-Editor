@@ -9,18 +9,16 @@ import com.badlogic.gdx.math.Vector2;
 public class Rec2D {
 		public Vector2 Scale;
 		public Vector2 Position;
-		public Vector2 Velocity;
 		public Texture RecTexture;
 		private Pixmap _pixelMap;
 		private Color _recColor;
 		Texture img;
 		
 
-		public Rec2D(Vector2 scale, Vector2 position, Vector2 velocity, Color color){
+		public Rec2D(Vector2 scale, Vector2 position, Color color){
 			Scale = scale;
 			Position = position;
 			_recColor = color;
-			Velocity = velocity;
 			
 			generateTexture();
 		}
