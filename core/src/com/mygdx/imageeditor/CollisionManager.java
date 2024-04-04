@@ -5,11 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CollisionManager {
 	public static CollisionManager Instance;
-	
+
 	public CollisionManager() {
 		Instance = this;
 	}
-	
+
 	public Button getCollision(Vector2 coordinates) {
 		Button iteratingButton;
 		for(int i = 0; i < InputManager.Instance.Buttons.size; i++) {

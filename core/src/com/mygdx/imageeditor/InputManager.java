@@ -5,13 +5,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class InputManager implements InputProcessor {
-	public Array<Button> Buttons = new Array<Button>();
+	public Array<IClickable> Clickable = new Array<IClickable>();
+	public Array<IHoverable> Hoverable = new Array<IHoverable>();
 	public static InputManager Instance;
-	
+	private IHoverable _hoveredButton;
+	private IClickable _currentllyClicked;
+
 	public InputManager() {
 		Instance = this;
 	}
-	
+
 	public boolean keyDown(int keycode) {
 		return false;
 	}
@@ -26,16 +29,16 @@ public class InputManager implements InputProcessor {
 
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
-		if(collision == null) return false;
-		
-		collision.onPressed();
-		//if(collision == ImageEditor.Instance.rectangle) System.out.println("Pressed button 1");
-		//else if(collision == ImageEditor.Instance.rectangle2) System.out.println("Pressed button 2");
-		
-		return true;
+		if (collision != null)
+			collision.onClickDown();
+
+		return false;
 	}
 
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if (_hoveredButton != null)
+			_hoveredButton.onClickUp(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
+
 		return false;
 	}
 
@@ -44,10 +47,18 @@ public class InputManager implements InputProcessor {
 	}
 
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		mouseMoved(screenX, screenY);
 		return false;
 	}
 
 	public boolean mouseMoved(int screenX, int screenY) {
+		Button collision = CollisionManager.Instance .getCollision(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
+		if (collision != _hoveredButton && _hoveredButton != null)
+			_hoveredButton.onHoverExit();
+		if (collision != null)
+			collision.onHovered();
+
+		_hoveredButton = collision;
 		return true;
 	}
 
