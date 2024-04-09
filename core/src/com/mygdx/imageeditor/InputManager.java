@@ -9,7 +9,7 @@ public class InputManager implements InputProcessor {
 	public Array<IHoverable> Hoverable = new Array<IHoverable>();
 	public static InputManager Instance;
 	private IHoverable _hoveredButton;
-	private IClickable _currentllyClicked;
+	private IClickable _currentlyClicked;
 
 	public InputManager() {
 		Instance = this;
@@ -28,16 +28,17 @@ public class InputManager implements InputProcessor {
 	}
 
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
+		Vector2 worldPosition = new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY);
+		IClickable collision = CollisionManager.Instance.getClicked(new Vector2(worldPosition));
 		if (collision != null)
-			collision.onClickDown();
-
+			collision.onClickDown(worldPosition);
+		_currentlyClicked = collision;
 		return false;
 	}
 
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (_hoveredButton != null)
-			_hoveredButton.onClickUp(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
+			_currentlyClicked.onClickUp(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
 
 		return false;
 	}
@@ -48,11 +49,13 @@ public class InputManager implements InputProcessor {
 
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		mouseMoved(screenX, screenY);
+		if(_currentlyClicked != null)
+			_currentlyClicked.onClickDragged(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
 		return false;
 	}
 
 	public boolean mouseMoved(int screenX, int screenY) {
-		Button collision = CollisionManager.Instance .getCollision(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
+		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
 		if (collision != _hoveredButton && _hoveredButton != null)
 			_hoveredButton.onHoverExit();
 		if (collision != null)

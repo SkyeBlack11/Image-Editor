@@ -7,9 +7,7 @@ public class Button extends Rec2D implements IClickable, IHoverable {
 	private Color _startColor;
 	private Color _hoveredColor;
 
-	public enum ButtonState {
-		Clicked, Hovered, None
-	};
+	public enum ButtonState {Clicked, Hovered, None};
 
 	private ButtonState _state;
 

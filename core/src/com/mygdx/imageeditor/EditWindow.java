@@ -15,12 +15,18 @@ public class EditWindow extends Rec2D implements IClickable {
 		_doodleMap = new Pixmap((int) scale.x, (int) scale.y, Format.RGBA8888);
 		_doodleMap.setColor(Color.ORANGE);
 		DoodleTexture = new Texture(_doodleMap);
+		InputManager.Instance.Clickable.add(this);
+	}
+	
+	public void paintAtPosition(Vector2 worldPosition) {
+		_doodleMap.drawPixel((int) (worldPosition.x - Position.x), (int) (Scale.y - worldPosition.y));
+		DoodleTexture = new Texture(_doodleMap);
 	}
 
-	public void onClickDown(Vector2 position) {
-		System.out.println("Clicked");
-		_doodleMap.drawPixel((int) (position.x - Position.x), (int) (Scale.y - position.y));
-		DoodleTexture = new Texture(_doodleMap);
+	public void onClickDown(Vector2 mousePosition) {
+		paintAtPosition(mousePosition);
+		//_doodleMap.drawPixel((int) (mousePosition.x - Position.x), (int) (Scale.y - mousePosition.y));
+		//DoodleTexture = new Texture(_doodleMap);
 	}
 
 	@Override
@@ -30,6 +36,7 @@ public class EditWindow extends Rec2D implements IClickable {
 
 	@Override
 	public void onClickDragged(Vector2 mousePosition) {
+		paintAtPosition(mousePosition);
 	}
 
 }

@@ -26,9 +26,10 @@ public class ImageEditor extends ApplicationAdapter {
 		
 		batch = new SpriteBatch();
 		_screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		Vector2 editWindowSize = new Vector2(500, _screenSize.y - 40);
+		
+		Vector2 editWindowSize = new Vector2(500, _screenSize.y - 50);
 		_editWindow = new EditWindow(editWindowSize, new Vector2(_screenSize.x - editWindowSize.x, 0), Color.GRAY);
-		//Button button1 = new Button(new Vector2(60,60), Vector2.Zero, Color.GOLD);
+		Button button1 = new Button(new Vector2(60,60), Vector2.Zero, Color.GOLD);
 	}
 
 	@Override
