@@ -37,9 +37,9 @@ public class InputManager implements InputProcessor {
 	}
 
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (_hoveredButton != null)
+		if (_currentlyClicked != null)
 			_currentlyClicked.onClickUp(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
-
+		
 		return false;
 	}
 

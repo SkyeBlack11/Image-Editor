@@ -20,6 +20,9 @@ public class ImageEditor extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Instance = this;
+		new ImageInputOutput();
+		ImageInputOutput.Instance.loadImage("blackbuck.bmp");
+		
 		CollisionManager collisionManager = new CollisionManager();
 		InputManager inputManager = new InputManager();
 		Gdx.input.setInputProcessor(inputManager);
