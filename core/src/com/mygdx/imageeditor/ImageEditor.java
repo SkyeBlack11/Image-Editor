@@ -5,6 +5,8 @@ import java.util.Random;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -21,7 +23,8 @@ public class ImageEditor extends ApplicationAdapter {
 	public void create () {
 		Instance = this;
 		new ImageInputOutput();
-		ImageInputOutput.Instance.loadImage("blackbuck.bmp");
+		
+		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackbuck.bmp");
 		
 		CollisionManager collisionManager = new CollisionManager();
 		InputManager inputManager = new InputManager();
@@ -32,7 +35,11 @@ public class ImageEditor extends ApplicationAdapter {
 		
 		Vector2 editWindowSize = new Vector2(500, _screenSize.y - 50);
 		_editWindow = new EditWindow(editWindowSize, new Vector2(_screenSize.x - editWindowSize.x, 0), Color.GRAY);
+		
+		_editWindow.DoodleTexture = new Texture(editMap);
+		
 		Button button1 = new Button(new Vector2(60,60), Vector2.Zero, Color.GOLD);
+		
 	}
 
 	@Override

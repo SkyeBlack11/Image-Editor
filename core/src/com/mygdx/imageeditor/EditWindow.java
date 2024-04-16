@@ -28,6 +28,9 @@ public class EditWindow extends Rec2D implements IClickable {
 		_doodleMap.drawLine(startX, startY, endX, endY);
 		_doodleMap.drawLine(startX + 1, startY, endX + 1, endY);
 		_doodleMap.drawLine(startX - 1, startY, endX - 1, endY);
+		_doodleMap.drawLine(startX, startY + 1, endX, endY + 1);
+		_doodleMap.drawLine(startX, startY - 1, endX, endY - 1);
+		_previousPaintPosition = paintPosition;
 		DoodleTexture = new Texture(_doodleMap);
 	}
 
@@ -35,8 +38,6 @@ public class EditWindow extends Rec2D implements IClickable {
 		if(_previousPaintPosition == null)
 			_previousPaintPosition = new Vector2(mousePosition.x - Position.x, Scale.y - mousePosition.y);
 		paintAtPosition(mousePosition);
-		//_doodleMap.drawPixel((int) (mousePosition.x - Position.x), (int) (Scale.y - mousePosition.y));
-		//DoodleTexture = new Texture(_doodleMap);
 	}
 	
 	@Override

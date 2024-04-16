@@ -48,6 +48,7 @@ public class InputManager implements InputProcessor {
 	}
 
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		//Is it me?
 		mouseMoved(screenX, screenY);
 		if(_currentlyClicked != null)
 			_currentlyClicked.onClickDragged(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
