@@ -1,11 +1,15 @@
 package com.mygdx.imageeditor;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 
 public class ImageInputOutput {
 	public static ImageInputOutput Instance;
+	private byte [] _fileHeader;
 	
 	public ImageInputOutput() {
 	Instance = this;
@@ -51,4 +55,9 @@ public class ImageInputOutput {
 		return pixels;
 		}
 	
+	public void saveImage(String filePath) throws IOException{
+		FileOutputStream output = new FileOutputStream(filePath);
+		
+		output.close();
+	}
 }

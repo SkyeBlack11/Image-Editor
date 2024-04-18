@@ -34,9 +34,7 @@ public class ImageEditor extends ApplicationAdapter {
 		_screenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		Vector2 editWindowSize = new Vector2(500, _screenSize.y - 50);
-		_editWindow = new EditWindow(editWindowSize, new Vector2(_screenSize.x - editWindowSize.x, 0), Color.GRAY);
-		
-		_editWindow.DoodleTexture = new Texture(editMap);
+		_editWindow = new EditWindow(editWindowSize, new Vector2(_screenSize.x - editWindowSize.x, 0), Texture);
 		
 		Button button1 = new Button(new Vector2(60,60), Vector2.Zero, Color.GOLD);
 		

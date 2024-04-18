@@ -11,8 +11,9 @@ public class EditWindow extends Rec2D implements IClickable {
 	private Pixmap _doodleMap;
 	private Vector2 _previousPaintPosition;
 
-	public EditWindow(Vector2 scale, Vector2 position, Color backgroundColor) {
-		super(scale, position, backgroundColor);
+	public EditWindow(Vector2 scale, Vector2 position, Texture imageTex) {
+		super(scale, position, Color.GRAY);
+		RecTexture = imageTex;
 		_doodleMap = new Pixmap((int) scale.x, (int) scale.y, Format.RGBA8888);
 		_doodleMap.setColor(Color.ORANGE);
 		DoodleTexture = new Texture(_doodleMap);
