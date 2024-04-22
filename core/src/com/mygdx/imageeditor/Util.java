@@ -28,7 +28,6 @@ public class Util {
 		return ints;
 	}//End Unsign
 
-//TODO Start
 	public static byte[] intToSignedBytes(int value) {
 		byte[] result = new byte[4];
 		for(int i = 0; i < result.length; i++) {
@@ -66,8 +65,6 @@ public class Util {
 			}//end second for
 			
 		}//end first for
-		
-		
 		
 		return target;
 	}

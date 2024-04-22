@@ -1,4 +1,4 @@
-package com.mygdx.imageeditor;
+package com.mygdx.utility;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.imageeditor.ImageEditor;
 
 public class InputManager implements InputProcessor {
 	public Array<IClickable> Clickable = new Array<IClickable>();
@@ -13,19 +14,21 @@ public class InputManager implements InputProcessor {
 	public static InputManager Instance;
 	private IHoverable _hoveredButton;
 	private IClickable _currentlyClicked;
-	private String filePath = "C:\\Users\\haley\\Desktop\\testImage.bmp";
+	private String filePath = "testImage.bmp";
 	
 	
 	public InputManager(){
 		Instance = this;
 	}
 	
-//TODO Start
 	private boolean _controlPressed;
 	@Override
 	public boolean keyDown(int keycode) {
 		if(_controlPressed && keycode == Keys.S)
-			try {ImageInputOutput.Instance.saveImage(filePath);} 
+			
+			if(ImageInputOutput.Instance.ImageFolderLocation == null)return false;
+			
+			try {ImageInputOutput.Instance.saveImage(ImageInputOutput.Instance.ImageFolderLocation + "\\" + filePath);} 
 			catch (IOException e) {e.printStackTrace();}
 		if(keycode == Keys.CONTROL_LEFT) _controlPressed = true;
 			
@@ -60,7 +63,7 @@ public class InputManager implements InputProcessor {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		//if(_hoveredButton != null) {
 			_currentlyClicked.onClickUp(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
-		//}TODO: This is no broken again. the hover feature is acting weird but I can draw lines properly.
+		//}TODO: The hover feature is acting weird but I can draw lines properly.
 		
 		
 		
@@ -86,7 +89,8 @@ public class InputManager implements InputProcessor {
 	public boolean mouseMoved(int screenX, int screenY) {
 		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance._screenSize.y - screenY));
 		if(_hoveredButton != null && _hoveredButton != collision) {_hoveredButton.onHoverExit();}
-		if(collision != null)collision.onHovered();		
+		if(collision != null)collision.onHovered();
+		if(collision != _hoveredButton) _currentlyClicked = null;
 		
 		_hoveredButton = collision;
 		return true;

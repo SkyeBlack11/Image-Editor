@@ -13,12 +13,15 @@ public class Rec2D {
 	private Pixmap _pixelMap;
 	protected Color _recColor;
 	Texture img;
+	public Outline Outline;
 
 	public Rec2D(Vector2 scale, Vector2 position, Color color) {
 		Scale = scale;
 		Position = position;
 		_recColor = color;
 		generateTexture();
+		Outline = new Outline(scale, Color.WHITE, 10);
+		
 		ImageEditor.Instance.Rectangles.add(this);
 	}
 
@@ -38,5 +41,10 @@ public class Rec2D {
 	public void changeColor(Color newColor) {
 		_recColor = newColor;
 		generateTexture();
+	}
+	
+	public void changeColor() {
+		java.util.Random random = new java.util.Random();
+		this.changeColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
 	}
 }

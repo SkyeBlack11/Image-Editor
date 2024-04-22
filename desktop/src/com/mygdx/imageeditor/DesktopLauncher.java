@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("ImageEditor");
 		config.setWindowedMode(584,480);
+		config.setResizable(false);
 		System.out.println("Project Made by: Haley Bush and Adam Carling");
 		
 		ImageEditor editor = new ImageEditor();

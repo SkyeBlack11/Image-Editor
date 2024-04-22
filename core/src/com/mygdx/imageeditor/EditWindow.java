@@ -6,25 +6,26 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.utility.IClickable;
+import com.mygdx.utility.InputManager;
 
 public class EditWindow extends Rec2D implements IClickable{
 	public Texture DoodleTexture;
-//TODO Start
 	public Pixmap _doodleMap;
 	private Vector2 _previousPaintPosition;
 	public static EditWindow Instance;
-//Stop
+	public Color DrawColor;
 	
 	
-//TODO Added ImageTex, Super gets Color.Gray, RecTexture is added	
 	public EditWindow(Vector2 scale, Vector2 position) {
-		super(scale, position, Color.GRAY);
-//Start
-		Instance = this;
-//Stop		
-		//RecTexture = ImageTex;
+		super(scale, position, Color.SLATE);
+		
+		Instance = this;	
+
 		_doodleMap = new Pixmap((int) scale.x, (int)scale.y, Format.RGBA8888);
-		_doodleMap.setColor(Color.ORANGE);
+		DrawColor = Color.ORANGE;
+		_doodleMap.setColor(DrawColor);
+		
 		DoodleTexture = new Texture(_doodleMap);
 		InputManager.Instance.Clickable.add(this);
 	}//End Constructor
@@ -42,10 +43,7 @@ public class EditWindow extends Rec2D implements IClickable{
 		_doodleMap.drawLine(startX, StartY+1, endX, endY+1);
 		_doodleMap.drawLine(startX, StartY-1, endX, endY-1);
 		
-		
-		//_doodleMap.drawLine( (int) _previousPaintPosition.x, (int)_previousPaintPosition.y, (int) paintPosition.x, (int) paintPosition.y);
 		_previousPaintPosition = paintPosition;
-		//_doodleMap.drawPixel((int)(worldPosition.x - Position.x), (int)(Scale.y - worldPosition.y));
 		DoodleTexture = new Texture(_doodleMap);
 	}
 	
